@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitive Programming — Complete Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #060a08;
+    --surface: #0d1410;
+    --surface2: #121a15;
+    --surface3: #17211b;
+    --border: #1c2922;
+    --border2: #28392f;
+    --accent: #39ff8c;
+    --accent2: #7dffb0;
+    --accent3: #ff5c5c;
+    --accent4: #5cc8ff;
+    --accent5: #ffd35c;
+    --text: #d8f0e2;
+    --text2: #7c9686;
+    --text3: #3f5448;
+    --glow: rgba(57, 255, 140, 0.13);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(57,255,140,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,140,0.025) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+  .blob-1 { width: 550px; height: 550px; background: rgba(57,255,140,0.06); top: -150px; left: -120px; }
+  .blob-2 { width: 420px; height: 420px; background: rgba(92,200,255,0.05); bottom: 150px; right: -100px; }
+  .blob-3 { width: 320px; height: 320px; background: rgba(255,92,92,0.04); top: 45%; left: 55%; }
+
+  header {
+    position: relative; z-index: 10;
+    max-width: 1200px; margin: 0 auto;
+    padding: 60px 44px 44px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent); opacity: 0.85; margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(32px, 5.2vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  h1 span { color: var(--accent); }
+  h1 .blink { animation: blink 1.4s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .header-desc {
+    color: var(--text2); font-size: 12.5px; max-width: 700px;
+    margin: 20px 0 14px; line-height: 1.85;
+  }
+
+  .career-note {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent4);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 11.5px;
+    color: var(--text2);
+    max-width: 760px;
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+  .career-note b { color: var(--accent4); }
+
+  .stats-row { display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat-num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1; display: block; }
+  .stat-lbl { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-top: 4px; }
+
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(6,10,8,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 44px;
+    display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .tab {
+    background: none; border: none; color: var(--text3);
+    font-size: 10.5px; padding: 13px 14px; cursor: pointer; white-space: nowrap;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 2px solid transparent; transition: all 0.2s; position: relative; top: 1px;
+  }
+  .tab:hover { color: var(--text2); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { max-width: 1200px; margin: 0 auto; padding: 0 44px 100px; position: relative; z-index: 1; }
+
+  .phase { margin-top: 60px; scroll-margin-top: 56px; animation: fadeUp 0.45s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .phase-head {
+    display: flex; gap: 26px; align-items: flex-start;
+    padding-bottom: 26px; border-bottom: 1px solid var(--border); margin-bottom: 28px;
+  }
+  .phase-badge {
+    font-size: 10px; font-weight: 700; color: var(--accent);
+    background: var(--surface); border: 1px solid var(--border2);
+    padding: 6px 12px; border-radius: 3px; white-space: nowrap;
+    letter-spacing: 0.12em; flex-shrink: 0; margin-top: 5px;
+  }
+  .phase-info { flex: 1; }
+  .phase-title { font-size: 25px; font-weight: 700; color: var(--text); line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .phase-desc { font-size: 12px; color: var(--text2); max-width: 680px; line-height: 1.85; margin-bottom: 14px; }
+  .phase-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .meta-pill { font-size: 10px; padding: 3px 9px; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .pill-time { color: var(--accent); border: 1px solid rgba(57,255,140,0.3); }
+  .pill-tags { color: var(--text3); border: 1px solid var(--border); }
+  .diff-foundation   { color: #5cc8ff; border: 1px solid rgba(92,200,255,0.3); }
+  .diff-intermediate { color: #39ff8c; border: 1px solid rgba(57,255,140,0.3); }
+  .diff-core         { color: #ffd35c; border: 1px solid rgba(255,211,92,0.3); }
+  .diff-advanced     { color: #ff9c5c; border: 1px solid rgba(255,156,92,0.3); }
+  .diff-expert       { color: #ff5c5c; border: 1px solid rgba(255,92,92,0.3); }
+
+  .toggle-btn {
+    background: none; border: 1px solid var(--border); color: var(--text3);
+    font-size: 10px; padding: 5px 10px; border-radius: 3px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; margin-bottom: 22px;
+  }
+  .toggle-btn:hover { color: var(--text2); border-color: var(--border2); }
+  .phase-body.collapsed { display: none; }
+
+  .eq-box {
+    background: var(--surface); border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px; padding: 22px 26px; margin-bottom: 28px;
+  }
+  .eq-title { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 18px; }
+  .eq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+  .eq-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 12px 14px; }
+  .eq-name { font-size: 10.5px; font-weight: 700; color: var(--accent2); margin-bottom: 5px; letter-spacing: 0.03em; }
+  .eq-val { font-size: 11px; color: var(--text2); line-height: 1.65; }
+
+  .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(348px, 1fr)); gap: 14px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: rgba(57,255,140,0.3); box-shadow: 0 0 22px var(--glow); transform: translateY(-1px); }
+  .card-head { padding: 15px 18px 11px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .card-icon { font-size: 17px; width: 26px; text-align: center; flex-shrink: 0; }
+  .card-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; line-height: 1.3; }
+  .card-sub { font-size: 10px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .resources { padding: 6px 0; }
+  .res { display: flex; align-items: flex-start; gap: 10px; padding: 9px 18px; text-decoration: none; color: var(--text2); font-size: 11.5px; transition: background 0.15s, color 0.15s; border-bottom: 1px solid var(--border); }
+  .res:last-child { border-bottom: none; }
+  .res:hover { background: var(--surface2); color: var(--text); }
+  .rtype { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; flex-shrink: 0; margin-top: 1px; white-space: nowrap; }
+  .t-prob    { background: rgba(57,255,140,0.12);  color: #39ff8c; border: 1px solid rgba(57,255,140,0.22); }
+  .t-article { background: rgba(92,200,255,0.12);  color: #5cc8ff; border: 1px solid rgba(92,200,255,0.22); }
+  .t-video   { background: rgba(255,92,92,0.12);   color: #ff5c5c; border: 1px solid rgba(255,92,92,0.22); }
+  .t-book    { background: rgba(255,211,92,0.12);  color: #ffd35c; border: 1px solid rgba(255,211,92,0.22); }
+  .t-tool    { background: rgba(125,255,176,0.12); color: #7dffb0; border: 1px solid rgba(125,255,176,0.22); }
+  .t-judge   { background: rgba(196,126,176,0.12); color: #c47eb0; border: 1px solid rgba(196,126,176,0.22); }
+  .res-body { flex: 1; }
+  .res-title { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.5; margin-bottom: 2px; }
+  .res-desc { font-size: 10.5px; color: var(--text3); line-height: 1.5; }
+  .star { color: var(--accent5); }
+
+  hr.div { border: none; border-top: 1px solid var(--border); margin: 56px 0 0; }
+
+  .interview-wrap { margin-top: 40px; background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; overflow: hidden; }
+  .interview-hdr { padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 16px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .interview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .company-block { padding: 20px 24px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .company-name { font-size: 11px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.1em; }
+  .iq { font-size: 11px; color: var(--text2); padding: 5px 0 5px 14px; position: relative; line-height: 1.6; }
+  .iq::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 6px; }
+
+  .papers-section { margin-top: 44px; }
+  .papers-hdr { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
+  .papers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 10px; }
+  .paper-card { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 14px 18px; text-decoration: none; display: block; transition: border-color 0.2s, transform 0.2s; }
+  .paper-card:hover { border-color: rgba(255,211,92,0.4); transform: translateY(-1px); }
+  .paper-year { font-size: 10px; color: var(--accent5); letter-spacing: 0.1em; margin-bottom: 4px; }
+  .paper-name { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 5px; }
+  .paper-desc { font-size: 11px; color: var(--text3); line-height: 1.6; }
+
+  footer { border-top: 1px solid var(--border); padding: 24px 44px; max-width: 1200px; margin: 0 auto; text-align: center; color: var(--text3); font-size: 11px; position: relative; z-index: 1; line-height: 2; }
+
+  @media (max-width: 768px) {
+    header, main, footer { padding-left: 20px; padding-right: 20px; }
+    .nav-inner { padding: 0 20px; }
+    .topics { grid-template-columns: 1fr; }
+    .eq-grid { grid-template-columns: 1fr; }
+    .papers-grid { grid-template-columns: 1fr; }
+    .phase-head { flex-direction: column; gap: 12px; }
+    .stats-row { gap: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<header>
+  <div class="eyebrow">// Complete Learning Roadmap</div>
+  <h1>Competitive Programming<span class="blink">_</span><br><span>Algorithms Mastery</span></h1>
+  <p class="header-desc">
+    Every algorithm, every data structure, every pattern — from arrays to flows, from segment trees to suffix automata. Organized into 8 phases from zero to Codeforces Grandmaster / ICPC World Finals level.
+  </p>
+  <div class="career-note">
+    <b>Why this matters for ML engineering:</b> CP isn't a detour from ML — it's the training ground for the exact muscle ML engineers underuse. DP is the backbone of dynamic computation graphs and Bellman-style RL value iteration. Graph algorithms underpin GNN message passing, dependency resolution in training pipelines, and distributed systems topology. Complexity analysis is what separates an engineer who writes O(n²) preprocessing that kills a training job from one who doesn't. Every FAANG/AI-lab interview loop (Google DeepMind, OpenAI, Anthropic, Meta) still gates on this layer before it even discusses ML.
+  </div>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num">8</span><span class="stat-lbl">Phases</span></div>
+    <div class="stat"><span class="stat-num">60+</span><span class="stat-lbl">Algorithms</span></div>
+    <div class="stat"><span class="stat-num">220+</span><span class="stat-lbl">Resources</span></div>
+    <div class="stat"><span class="stat-num">500+</span><span class="stat-lbl">Practice Problems</span></div>
+    <div class="stat"><span class="stat-num">12–18</span><span class="stat-lbl">Months to Mastery</span></div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <button class="tab active" onclick="gotoPhase('basics',this)">Basics & Complexity</button>
+    <button class="tab" onclick="gotoPhase('ds',this)">Core Data Structures</button>
+    <button class="tab" onclick="gotoPhase('graphs',this)">Graph Theory</button>
+    <button class="tab" onclick="gotoPhase('dp',this)">Dynamic Programming</button>
+    <button class="tab" onclick="gotoPhase('strings',this)">Strings & Hashing</button>
+    <button class="tab" onclick="gotoPhase('math',this)">Math & Number Theory</button>
+    <button class="tab" onclick="gotoPhase('advanced',this)">Advanced Structures</button>
+    <button class="tab" onclick="gotoPhase('mastery',this)">Mastery & Interview</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===================================================== PHASE 1 -->
+<section class="phase" id="basics">
+  <div class="phase-head">
+    <div class="phase-badge">01</div>
+    <div class="phase-info">
+      <div class="phase-title">Foundations — Complexity, Math Basics & Implementation Speed</div>
+      <div class="phase-desc">
+        Before any algorithm matters, you need automatic complexity analysis, fast I/O, and bug-free implementation under time pressure. This phase builds the reflexes — most people lose contest points to silly bugs, not missing knowledge.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 4–5 weeks</span>
+        <span class="meta-pill pill-tags">Big-O · Arrays · Two Pointers · Sliding Window · Binary Search</span>
+        <span class="meta-pill diff-foundation">Foundation</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="eq-box">
+      <div class="eq-title">// Complexity Cheat Sheet</div>
+      <div class="eq-grid">
+        <div class="eq-item"><div class="eq-name">Time Limit Heuristic</div><div class="eq-val">~10⁸ ops/sec. n≤10⁸→O(n), n≤10⁵→O(n log n), n≤500→O(n³)</div></div>
+        <div class="eq-item"><div class="eq-name">Master Theorem</div><div class="eq-val">T(n)=aT(n/b)+f(n) → compare f(n) vs n^(log_b a)</div></div>
+        <div class="eq-item"><div class="eq-name">Amortized Analysis</div><div class="eq-val">Total cost / n operations — used for dynamic arrays, union-find</div></div>
+        <div class="eq-item"><div class="eq-name">Binary Search Invariant</div><div class="eq-val">lo, hi maintain: answer ∈ [lo, hi]; loop while lo < hi</div></div>
+        <div class="eq-item"><div class="eq-name">Two Pointer Invariant</div><div class="eq-val">Monotonic window property must hold for both pointers to be valid</div></div>
+        <div class="eq-item"><div class="eq-name">Space-Time Tradeoff</div><div class="eq-val">Precompute / memoize when same subproblem recurs ≥ O(log n) times</div></div>
+      </div>
+    </div>
+
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📊</div><div><div class="card-title">Complexity Analysis</div><div class="card-sub">Big-O · Big-Θ · Amortized · Master Theorem</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://www.cs.cmu.edu/~15110-n15/lectures/unit05-1-bigO.pdf" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Big-O Notation — CMU CS Lecture Notes</div><div class="res-desc">Formal definitions of O, Θ, Ω with worked proofs. Foundation before any algorithm study.</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/" target="_blank"><span class="rtype t-book">Book</span><div class="res-body"><div class="res-title">CP-Algorithms (e-maxx-eng) — The Definitive Reference <span class="star">★</span></div><div class="res-desc">The single best CP reference on the internet. Bookmark every page. You'll return here constantly.</div></div></a>
+          <a class="res" href="https://www.youtube.com/watch?v=Mo4vesaut8g" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Big-O Notation Explained — freeCodeCamp</div><div class="res-desc">Clear visual intro to time/space complexity with code examples in multiple languages</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔍</div><div><div class="card-title">Binary Search & Variants</div><div class="card-sub">Search Space · Binary Search on Answer · Ternary Search</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://leetcode.com/explore/learn/card/binary-search/" target="_blank"><span class="rtype t-prob">Problems</span><div class="res-body"><div class="res-title">Binary Search Explore Card — LeetCode</div><div class="res-desc">Structured path through classic + advanced binary search variants with editorial explanations</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/num_methods/ternary_search.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Binary/Ternary Search on Answer — CP-Algorithms</div><div class="res-desc">Pattern: when the answer space is monotonic, binary search the answer itself, not the array</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/96344" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Binary Search is Not Just for Arrays — Codeforces Blog</div><div class="res-desc">Generalizing binary search to monotonic predicate functions over any domain</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">↔️</div><div><div class="card-title">Two Pointers & Sliding Window</div><div class="card-sub">Fixed/Variable Window · Monotonic Pointers</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://leetcode.com/explore/learn/card/queue-stack/" target="_blank"><span class="rtype t-prob">Problems</span><div class="res-body"><div class="res-title">Sliding Window Patterns — LeetCode Explore</div><div class="res-desc">All variations: fixed size, variable size, monotonic deque-based window</div></div></a>
+          <a class="res" href="https://www.geeksforgeeks.org/window-sliding-technique/" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Window Sliding Technique — GeeksforGeeks</div><div class="res-desc">Standard reference with complexity analysis and common problem patterns</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📚</div><div><div class="card-title">Recursion, Backtracking & Greedy Basics</div><div class="card-sub">Subsets · Permutations · Exchange Argument</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://www.topcoder.com/thrive/articles/Greedy%20Method" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Greedy Algorithms — TopCoder Tutorials</div><div class="res-desc">Classic intro to exchange argument proofs for greedy correctness</div></div></a>
+          <a class="res" href="https://leetcode.com/explore/learn/card/recursion-i/" target="_blank"><span class="rtype t-prob">Problems</span><div class="res-body"><div class="res-title">Recursion I & II — LeetCode Explore Cards</div><div class="res-desc">Backtracking templates: subsets, permutations, N-Queens, combination sum</div></div></a>
+          <a class="res" href="https://www.youtube.com/watch?v=zg9ih6SVACc" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Backtracking Algorithms — Abdul Bari</div><div class="res-desc">Visual explanation of backtracking with N-Queens and graph coloring worked examples</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⚡</div><div><div class="card-title">Fast I/O & Implementation Speed</div><div class="card-sub">C++ Templates · Language-Specific Tricks</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://codeforces.com/blog/entry/15643" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Fast I/O for Competitive Programming — Codeforces Blog</div><div class="res-desc">scanf/printf vs cin/cout sync, buffered readers — necessary for tight TLs</div></div></a>
+          <a class="res" href="https://github.com/kth-competitive-programming/kactl" target="_blank"><span class="rtype t-tool">Tool</span><div class="res-body"><div class="res-title">KACTL — KTH Competitive Programming Library <span class="star">★</span></div><div class="res-desc">The gold-standard C++ algorithm template library used by top ICPC teams. Study every file.</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🎓</div><div><div class="card-title">Structured Starting Courses</div><div class="card-sub">Full Courses to Begin the Journey</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cses.fi/problemset/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">CSES Problem Set <span class="star">★</span></div><div class="res-desc">300 curated problems covering every fundamental CP topic in order. The best structured starting point.</div></div></a>
+          <a class="res" href="https://www.youtube.com/c/WilliamFiset-videos" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">William Fiset — Data Structures & Algorithms (YouTube)</div><div class="res-desc">Complete free course covering every classic algorithm with animated visualizations and code</div></div></a>
+          <a class="res" href="https://usaco.guide/" target="_blank"><span class="rtype t-book">Book</span><div class="res-body"><div class="res-title">USACO Guide <span class="star">★</span></div><div class="res-desc">Free structured curriculum from Bronze to Platinum. Best-organized free resource in existence.</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 2 -->
+<section class="phase" id="ds">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">02</div>
+    <div class="phase-info">
+      <div class="phase-title">Core Data Structures</div>
+      <div class="phase-desc">
+        Stacks, queues, heaps, hash maps, trees, and the workhorse range-query structures: segment trees, Fenwick trees, and sparse tables. These are the same structures behind database indices, scheduler queues, and feature stores in production ML systems.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 6–7 weeks</span>
+        <span class="meta-pill pill-tags">Heap · Segment Tree · Fenwick · DSU · Trie</span>
+        <span class="meta-pill diff-intermediate">Intermediate</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="eq-box">
+      <div class="eq-title">// Complexity Reference</div>
+      <div class="eq-grid">
+        <div class="eq-item"><div class="eq-name">Segment Tree</div><div class="eq-val">Build O(n), query/update O(log n), lazy prop O(log n)</div></div>
+        <div class="eq-item"><div class="eq-name">Fenwick Tree (BIT)</div><div class="eq-val">Update O(log n), prefix query O(log n), space O(n)</div></div>
+        <div class="eq-item"><div class="eq-name">Union-Find (DSU)</div><div class="eq-val">find/union O(α(n)) amortized with path compression + union by rank</div></div>
+        <div class="eq-item"><div class="eq-name">Sparse Table</div><div class="eq-val">O(n log n) build, O(1) idempotent range query (min/max/gcd)</div></div>
+        <div class="eq-item"><div class="eq-name">Heap Operations</div><div class="eq-val">insert/extract-min O(log n), peek O(1), build-heap O(n)</div></div>
+        <div class="eq-item"><div class="eq-name">Trie</div><div class="eq-val">Insert/search O(L) per string of length L; space O(ALPHABET·N·L)</div></div>
+      </div>
+    </div>
+
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌳</div><div><div class="card-title">Segment Trees</div><div class="card-sub">Range Sum/Min/Max · Lazy Propagation · Merge Sort Tree</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/data_structures/segment_tree.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Segment Tree — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Complete reference: basic, lazy propagation, persistent, 2D segment trees with code</div></div></a>
+          <a class="res" href="https://www.youtube.com/watch?v=xztU7lmDLv8" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Segment Trees — William Fiset</div><div class="res-desc">Visual build-up from array to tree representation with full implementation</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/18051" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Efficient and Easy Segment Trees — Al.Cash (Codeforces)</div><div class="res-desc">Iterative bottom-up segment tree implementation. Most efficient practical version.</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📈</div><div><div class="card-title">Fenwick Tree / Binary Indexed Tree</div><div class="card-sub">Prefix Sums · 2D BIT · BIT for Range Update</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/data_structures/fenwick.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Fenwick Tree — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Bit manipulation trick for O(log n) prefix sums. Extends to 2D and range updates.</div></div></a>
+          <a class="res" href="https://www.topcoder.com/thrive/articles/Binary%20Indexed%20Trees" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Binary Indexed Trees — TopCoder Classic Tutorial</div><div class="res-desc">The original tutorial that introduced BIT to the competitive programming community</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔗</div><div><div class="card-title">Union-Find (Disjoint Set Union)</div><div class="card-sub">Path Compression · Union by Rank · Weighted DSU</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/data_structures/disjoint_set_union.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Disjoint Set Union — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Path compression + union by rank/size proof of O(α(n)) amortized complexity</div></div></a>
+          <a class="res" href="https://leetcode.com/problems/number-of-islands/" target="_blank"><span class="rtype t-prob">Problems</span><div class="res-body"><div class="res-title">Number of Islands & DSU Practice Set — LeetCode</div><div class="res-desc">Classic connectivity problems where DSU is the canonical solution</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⛰️</div><div><div class="card-title">Heaps & Priority Queues</div><div class="card-sub">Binary Heap · Indexed Heap · K-way Merge</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://www.geeksforgeeks.org/binary-heap/" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Binary Heap — GeeksforGeeks</div><div class="res-desc">Heapify, insert, extract operations with array-based implementation</div></div></a>
+          <a class="res" href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank"><span class="rtype t-prob">Problems</span><div class="res-body"><div class="res-title">K-way Merge & Top-K Patterns — LeetCode</div><div class="res-desc">Standard heap application patterns: merge k lists, kth largest, task scheduling</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔤</div><div><div class="card-title">Trie (Prefix Tree)</div><div class="card-sub">Autocomplete · XOR Trie · Aho-Corasick Preview</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/string/aho_corasick.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Trie & Aho-Corasick — CP-Algorithms</div><div class="res-desc">Trie construction then extension to multi-pattern string matching automaton</div></div></a>
+          <a class="res" href="https://www.youtube.com/watch?v=zIjfhVPRZCg" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Trie Data Structure — William Fiset</div><div class="res-desc">Implementation walkthrough with insert, search, prefix counting operations</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📊</div><div><div class="card-title">Sparse Tables & Persistent Structures</div><div class="card-sub">O(1) Range Query · Persistent Segment Tree</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/data_structures/sparse-table.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Sparse Table — CP-Algorithms</div><div class="res-desc">O(1) idempotent range queries (min, max, gcd) using O(n log n) precomputation</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/15729" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Persistent Segment Trees — Codeforces Blog</div><div class="res-desc">Version-controlled segment trees: query any historical version in O(log n)</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 3 -->
+<section class="phase" id="graphs">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">03</div>
+    <div class="phase-info">
+      <div class="phase-title">Graph Theory — Traversal, Shortest Paths & Flows</div>
+      <div class="phase-desc">
+        The single highest-leverage topic for an ML engineer. Graph traversal underlies dependency graphs in autodiff, GNN message passing IS graph traversal, and max-flow shows up in optimal transport and assignment problems used in modern ML pipelines.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 8–10 weeks</span>
+        <span class="meta-pill pill-tags">BFS/DFS · Dijkstra · MST · Max Flow · SCC · LCA</span>
+        <span class="meta-pill diff-core">Core</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="eq-box">
+      <div class="eq-title">// Graph Algorithm Complexity Reference</div>
+      <div class="eq-grid">
+        <div class="eq-item"><div class="eq-name">BFS / DFS</div><div class="eq-val">O(V + E) — shortest path on unweighted graphs (BFS), connectivity, cycles</div></div>
+        <div class="eq-item"><div class="eq-name">Dijkstra (heap)</div><div class="eq-val">O((V + E) log V) — single-source shortest path, non-negative weights only</div></div>
+        <div class="eq-item"><div class="eq-name">Bellman-Ford</div><div class="eq-val">O(VE) — handles negative weights, detects negative cycles</div></div>
+        <div class="eq-item"><div class="eq-name">Floyd-Warshall</div><div class="eq-val">O(V³) — all-pairs shortest path, dense graphs, small V</div></div>
+        <div class="eq-item"><div class="eq-name">Kruskal / Prim (MST)</div><div class="eq-val">Kruskal O(E log E), Prim O(E log V) with heap — minimum spanning tree</div></div>
+        <div class="eq-item"><div class="eq-name">Max Flow (Dinic's)</div><div class="eq-val">O(V² E) general, O(E√V) on unit-capacity graphs (bipartite matching)</div></div>
+      </div>
+    </div>
+
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🧭</div><div><div class="card-title">Graph Traversal — BFS, DFS & Applications</div><div class="card-sub">Connected Components · Cycle Detection · Topological Sort</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/breadth-first-search.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">BFS & DFS — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Core traversal patterns with applications to connectivity, bipartiteness, cycle detection</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/topological-sort.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Topological Sort — CP-Algorithms</div><div class="res-desc">DFS-based and Kahn's BFS-based algorithms. Same structure as DAG-based compute graph scheduling.</div></div></a>
+          <a class="res" href="https://www.youtube.com/watch?v=09_LlHjoEiY" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Graph Theory Playlist — William Fiset</div><div class="res-desc">Comprehensive 40+ video series covering every major graph algorithm with code</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🛤️</div><div><div class="card-title">Shortest Path Algorithms</div><div class="card-sub">Dijkstra · Bellman-Ford · Floyd-Warshall · SPFA</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/dijkstra.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Dijkstra's Algorithm — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Heap-based O((V+E)log V) implementation with dense-graph O(V²) variant</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/bellman_ford.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Bellman-Ford & Negative Cycle Detection — CP-Algorithms</div><div class="res-desc">Handles negative edges; detect negative cycles via V-th iteration relaxation check</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/all-pair-shortest-path-floyd-warshall.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Floyd-Warshall — CP-Algorithms</div><div class="res-desc">DP-based all-pairs shortest path; same structure as transitive closure computation</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌲</div><div><div class="card-title">Minimum Spanning Trees</div><div class="card-sub">Kruskal · Prim · Borůvka</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/mst_kruskal.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Kruskal's Algorithm — CP-Algorithms</div><div class="res-desc">Sort edges + DSU to greedily build MST. Proof of correctness via cut property.</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/mst_prim.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Prim's Algorithm — CP-Algorithms</div><div class="res-desc">Heap-based and dense O(V²) implementations; better than Kruskal for dense graphs</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔀</div><div><div class="card-title">Strongly Connected Components & 2-SAT</div><div class="card-sub">Tarjan's · Kosaraju's · Bridges & Articulation Points</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/strongly-connected-components.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Strongly Connected Components (Tarjan / Kosaraju) — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Two classic SCC algorithms with low-link values explained in depth</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/bridge-searching.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Finding Bridges & Articulation Points — CP-Algorithms</div><div class="res-desc">DFS low-link technique for critical edges/vertices — network reliability analysis</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/2SAT.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">2-SAT via SCC — CP-Algorithms</div><div class="res-desc">Reduce boolean satisfiability to implication graph SCC — elegant constraint solving</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌊</div><div><div class="card-title">Network Flow</div><div class="card-sub">Max Flow · Min Cut · Dinic's · MCMF</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/edmonds_karp.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Edmonds-Karp Max Flow — CP-Algorithms</div><div class="res-desc">BFS-based Ford-Fulkerson — simple O(VE²) baseline before learning Dinic's</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/dinic.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Dinic's Algorithm — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(V²E) max flow via blocking flows and level graphs. The practical standard algorithm.</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/mincost_flow.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Min Cost Max Flow — CP-Algorithms</div><div class="res-desc">SPFA/Johnson-based successive shortest paths for assignment-style optimization problems</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">💍</div><div><div class="card-title">Bipartite Matching & Tree Algorithms</div><div class="card-sub">Hopcroft-Karp · LCA · Binary Lifting · Euler Tour</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/kuhn_maximum_bipartite_matching.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Kuhn's Algorithm for Bipartite Matching — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Augmenting path algorithm. Directly applicable to assignment problems in ML scheduling.</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/lca_binary_lifting.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">LCA via Binary Lifting — CP-Algorithms</div><div class="res-desc">O(log n) lowest common ancestor queries after O(n log n) preprocessing</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/graph/euler_path.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Euler Tour Technique — CP-Algorithms</div><div class="res-desc">Flatten tree into array for subtree-sum and path queries via segment tree composition</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 4 -->
+<section class="phase" id="dp">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">04</div>
+    <div class="phase-info">
+      <div class="phase-title">Dynamic Programming — The Career-Defining Skill</div>
+      <div class="phase-desc">
+        If there is one CP skill that transfers most directly to ML engineering, it's this. Bellman equations in RL are DP. Viterbi decoding is DP. Beam search is bounded DP. CYK parsing is DP. Mastering state design here makes you faster at decomposing every optimization problem you'll ever face.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 8–10 weeks</span>
+        <span class="meta-pill pill-tags">Knapsack · LIS · Bitmask DP · Tree DP · Digit DP</span>
+        <span class="meta-pill diff-core">Core</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="eq-box">
+      <div class="eq-title">// DP Pattern Reference</div>
+      <div class="eq-grid">
+        <div class="eq-item"><div class="eq-name">0/1 Knapsack</div><div class="eq-val">dp[i][w] = max(dp[i-1][w], dp[i-1][w-wt[i]]+val[i])</div></div>
+        <div class="eq-item"><div class="eq-name">LIS (O(n log n))</div><div class="eq-val">Binary search on tails array; patience sorting technique</div></div>
+        <div class="eq-item"><div class="eq-name">Bitmask DP (TSP)</div><div class="eq-val">dp[mask][i] = min cost to visit cities in mask, ending at i — O(2ⁿ·n²)</div></div>
+        <div class="eq-item"><div class="eq-name">Tree DP</div><div class="eq-val">dp[node] computed from dp[children] via post-order DFS</div></div>
+        <div class="eq-item"><div class="eq-name">Digit DP</div><div class="eq-val">dp[pos][tight][state] — count numbers with property up to N</div></div>
+        <div class="eq-item"><div class="eq-name">Convex Hull Trick / Divide & Conquer Opt</div><div class="eq-val">Optimize O(n²) DP transitions to O(n log n) when cost function is convex/monotonic</div></div>
+      </div>
+    </div>
+
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🎒</div><div><div class="card-title">Classic 1D/2D DP</div><div class="card-sub">Knapsack · Coin Change · LCS · Edit Distance</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cses.fi/problemset/list/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">CSES Dynamic Programming Section <span class="star">★</span></div><div class="res-desc">19 problems covering every classic DP pattern in escalating difficulty order</div></div></a>
+          <a class="res" href="https://www.youtube.com/playlist?list=PLqYmG7hTraZBiPxQDtwoZjzZTtllpAS-K" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Dynamic Programming Playlist — Aditya Verma (YouTube)</div><div class="res-desc">The most-recommended free DP course; builds intuition from knapsack to advanced patterns</div></div></a>
+          <a class="res" href="https://atcoder.jp/contests/dp" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">AtCoder Educational DP Contest (EDPC) <span class="star">★</span></div><div class="res-desc">26 problems (A–Z) — the gold-standard structured DP problem set used worldwide</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📈</div><div><div class="card-title">Sequence DP</div><div class="card-sub">LIS · LCS · Longest Palindromic Subsequence</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/sequences/longest_increasing_subsequence.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Longest Increasing Subsequence — CP-Algorithms</div><div class="res-desc">O(n²) DP and O(n log n) binary search optimization, with reconstruction</div></div></a>
+          <a class="res" href="https://leetcode.com/problems/longest-common-subsequence/" target="_blank"><span class="rtype t-prob">Problems</span><div class="res-body"><div class="res-title">LCS / Edit Distance Problem Set — LeetCode</div><div class="res-desc">Foundational string DP — also the algorithm behind diff tools and sequence alignment in bioinformatics</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔢</div><div><div class="card-title">Bitmask DP</div><div class="card-sub">TSP · Subset Enumeration · SOS DP</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/algebra/all-submasks.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Submask Enumeration & SOS DP — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Sum over Subsets DP — O(2ⁿ·n) technique used in many "for each subset" problems</div></div></a>
+          <a class="res" href="https://www.topcoder.com/thrive/articles/Bit%20Manipulation" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Bit Manipulation & Bitmask DP — TopCoder Tutorials</div><div class="res-desc">TSP via bitmask DP — exact O(2ⁿn²) solution, foundation for state-space search</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌴</div><div><div class="card-title">Tree DP & Rerooting</div><div class="card-sub">Subtree Aggregation · Rerooting Technique</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://codeforces.com/blog/entry/20935" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Tree DP & Rerooting Technique — Codeforces Blog <span class="star">★</span></div><div class="res-desc">Compute answer rooted at every node in O(n) total via two-pass DFS rerooting trick</div></div></a>
+          <a class="res" href="https://usaco.guide/gold/tree-euler" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Tree DP — USACO Guide (Gold/Platinum)</div><div class="res-desc">Progressive tree DP problems from subtree sums to diameter and rerooting</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔟</div><div><div class="card-title">Digit DP & Interval DP</div><div class="card-sub">Counting Numbers · Matrix Chain · Stone Game</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://www.geeksforgeeks.org/digit-dp/" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Digit DP — GeeksforGeeks</div><div class="res-desc">Count numbers in [L,R] with digit constraints; tight/loose bound state design</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/dynamic_programming/divide-and-conquer-dp.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Interval DP & D&C Optimization — CP-Algorithms</div><div class="res-desc">Matrix chain multiplication pattern; divide-and-conquer DP optimization for O(n log n) speedup</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📐</div><div><div class="card-title">DP Optimization Techniques</div><div class="card-sub">Convex Hull Trick · Knuth's Opt · Monotonic Queue</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/dynamic_programming/knuths-optimization.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Knuth's Optimization — CP-Algorithms</div><div class="res-desc">O(n³)→O(n²) for interval DP when quadrangle inequality holds</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/geometry/convex_hull_trick.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Convex Hull Trick — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Maintain a lower envelope of lines for O(log n) DP transition queries — used in slope trick DP</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 5 -->
+<section class="phase" id="strings">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">05</div>
+    <div class="phase-info">
+      <div class="phase-title">Strings, Hashing & Pattern Matching</div>
+      <div class="phase-desc">
+        String algorithms map directly to tokenization, BPE merge logic, and sequence search in NLP pipelines. KMP, Z-function, and suffix structures are also the conceptual backbone of how BLAST and genome aligners work in bioinformatics ML.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 5–6 weeks</span>
+        <span class="meta-pill pill-tags">KMP · Z-function · Suffix Array · Hashing · Aho-Corasick</span>
+        <span class="meta-pill diff-advanced">Advanced</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔍</div><div><div class="card-title">Pattern Matching — KMP & Z-Function</div><div class="card-sub">Prefix Function · Linear Time Matching</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/string/prefix-function.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Prefix Function & KMP — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(n) string matching via failure function. Core algorithm behind grep-style tools.</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/string/z-function.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Z-Function — CP-Algorithms</div><div class="res-desc">Alternative O(n) pattern matching; often simpler to apply than KMP for many problems</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">#️⃣</div><div><div class="card-title">String Hashing</div><div class="card-sub">Polynomial Hashing · Double Hashing · Collision Avoidance</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/string/string-hashing.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">String Hashing — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Polynomial rolling hash; how to avoid anti-hash tests with random/double moduli</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/60442" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Anti-Hash Tests — Codeforces Blog</div><div class="res-desc">Why naive single-modulus hashing fails on Codeforces and how to defend against it</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🗂️</div><div><div class="card-title">Suffix Arrays & Suffix Automaton</div><div class="card-sub">SA Construction · LCP Array · Suffix Tree</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/string/suffix-array.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Suffix Array — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(n log n) construction via doubling; LCP array via Kasai's algorithm</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/string/suffix-automaton.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Suffix Automaton — CP-Algorithms</div><div class="res-desc">Compact automaton representing all substrings in O(n) states. Advanced but powerful.</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌀</div><div><div class="card-title">Multi-Pattern Matching</div><div class="card-sub">Aho-Corasick · Manacher's Algorithm</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/string/aho_corasick.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Aho-Corasick Automaton — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Trie + failure links for matching multiple patterns simultaneously in O(n+m)</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/string/manacher.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Manacher's Algorithm — CP-Algorithms</div><div class="res-desc">O(n) longest palindromic substring at every center; elegant linear-time technique</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 6 -->
+<section class="phase" id="math">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">06</div>
+    <div class="phase-info">
+      <div class="phase-title">Mathematics — Number Theory, Combinatorics & Game Theory</div>
+      <div class="phase-desc">
+        Modular arithmetic and combinatorics directly underpin cryptographic primitives, probability calculations in Bayesian ML, and the modular exponentiation used in efficient hashing. Game theory connects to multi-agent RL's Nash equilibrium concepts.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 6–7 weeks</span>
+        <span class="meta-pill pill-tags">Modular Arithmetic · Combinatorics · Game Theory · FFT</span>
+        <span class="meta-pill diff-advanced">Advanced</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="eq-box">
+      <div class="eq-title">// Number Theory Core Equations</div>
+      <div class="eq-grid">
+        <div class="eq-item"><div class="eq-name">Fermat's Little Theorem</div><div class="eq-val">a^(p-1) ≡ 1 (mod p) for prime p, gcd(a,p)=1 — modular inverse via a^(p-2)</div></div>
+        <div class="eq-item"><div class="eq-name">Extended Euclidean</div><div class="eq-val">ax + by = gcd(a,b) — finds Bézout coefficients, modular inverse for any modulus</div></div>
+        <div class="eq-item"><div class="eq-name">Sieve of Eratosthenes</div><div class="eq-val">O(n log log n) — primes up to n; linear sieve variant O(n)</div></div>
+        <div class="eq-item"><div class="eq-name">CRT (Chinese Remainder Theorem)</div><div class="eq-val">Combine x ≡ aᵢ (mod mᵢ) for pairwise coprime mᵢ into unique solution mod ∏mᵢ</div></div>
+        <div class="eq-item"><div class="eq-name">Nim / Sprague-Grundy</div><div class="eq-val">XOR of pile sizes ≠ 0 ⟹ first player wins (Nim); Grundy(state) = mex(reachable)</div></div>
+        <div class="eq-item"><div class="eq-name">FFT Convolution</div><div class="eq-val">O(n log n) polynomial multiplication via Fast Fourier Transform / NTT</div></div>
+      </div>
+    </div>
+
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔢</div><div><div class="card-title">Modular Arithmetic & Number Theory</div><div class="card-sub">Modular Inverse · GCD/LCM · Euler's Totient</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/algebra/module-inverse.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Modular Inverse — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Three methods: extended Euclidean, Fermat's little theorem, and linear sieve for ranges</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/algebra/sieve-of-eratosthenes.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Sieve of Eratosthenes (+ linear sieve) — CP-Algorithms</div><div class="res-desc">Standard O(n log log n) sieve and the faster O(n) linear sieve for factorization tasks</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/algebra/phi-function.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Euler's Totient Function — CP-Algorithms</div><div class="res-desc">Counting coprimes; foundational for RSA cryptography and many counting problems</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🎲</div><div><div class="card-title">Combinatorics & Probability</div><div class="card-sub">nCr · Catalan Numbers · Inclusion-Exclusion</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/combinatorics/binomial-coefficients.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Binomial Coefficients — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Precompute factorials mod p; Pascal's triangle, Lucas' theorem for huge n</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/combinatorics/inclusion-exclusion.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Inclusion-Exclusion Principle — CP-Algorithms</div><div class="res-desc">Counting technique central to probability calculations in Bayesian inference problems</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/combinatorics/catalan-numbers.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Catalan Numbers — CP-Algorithms</div><div class="res-desc">Counting balanced parentheses, binary trees, triangulations — recurring CP motif</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⚔️</div><div><div class="card-title">Game Theory</div><div class="card-sub">Nim · Sprague-Grundy · Minimax</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/game_theory/games_on_graphs.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Games on Graphs & Sprague-Grundy Theorem — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Combine independent games via XOR of Grundy numbers — connects to combinatorial game theory</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/game_theory/nim.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Nim Game — CP-Algorithms</div><div class="res-desc">Classic impartial game; XOR-sum determines the winner. Foundation for all Nim variants.</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌊</div><div><div class="card-title">FFT, NTT & Polynomial Algorithms</div><div class="card-sub">Fast Convolution · Polynomial Multiplication</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/algebra/fft.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Fast Fourier Transform — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(n log n) polynomial multiplication via FFT; NTT for exact integer arithmetic mod prime</div></div></a>
+          <a class="res" href="https://www.youtube.com/watch?v=h7apO7q16V0" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">But what is the Fourier Transform? — 3Blue1Brown</div><div class="res-desc">Best visual intuition for FFT before tackling the discrete algorithmic version</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⚙️</div><div><div class="card-title">Matrix Exponentiation & Linear Recurrences</div><div class="card-sub">Fast Fibonacci · Linear Recurrence in O(log n)</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/algebra/binary-exp.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Binary Exponentiation — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(log n) exponentiation; extends to matrix power for linear recurrence acceleration</div></div></a>
+          <a class="res" href="https://www.hackerearth.com/practice/notes/matrix-exponentiation-1/" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Matrix Exponentiation for Linear Recurrences — HackerEarth Notes</div><div class="res-desc">Generalize Fibonacci-style recurrences to O(k³ log n) using matrix power</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 7 -->
+<section class="phase" id="advanced">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">07</div>
+    <div class="phase-info">
+      <div class="phase-title">Advanced Data Structures & Specialized Algorithms</div>
+      <div class="phase-desc">
+        The structures that separate Candidate Master from Grandmaster: heavy-light decomposition, persistent structures, sqrt decomposition, centroid decomposition. Also geometry — Codeforces Div 1 staple and surprisingly common in robotics/perception ML interviews.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ 7–9 weeks</span>
+        <span class="meta-pill pill-tags">HLD · Sqrt Decomposition · Centroid Decomp · Geometry</span>
+        <span class="meta-pill diff-expert">Expert</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🪢</div><div><div class="card-title">Heavy-Light Decomposition</div><div class="card-sub">Path Queries · Subtree Queries on Trees</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/hld.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Heavy-Light Decomposition — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Decompose tree into O(log n) chains for O(log² n) path queries via segment trees</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/53170" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">HLD Tutorial with Implementation — Codeforces Blog</div><div class="res-desc">Clean implementation walkthrough with common pitfalls and edge cases explained</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⬜</div><div><div class="card-title">Sqrt Decomposition & Mo's Algorithm</div><div class="card-sub">Block Decomposition · Offline Range Queries</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/data_structures/sqrt_decomposition.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Sqrt Decomposition — CP-Algorithms</div><div class="res-desc">O(√n) range queries/updates; simpler alternative to segment trees for some problems</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/data_structures/sqrt-tree.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Mo's Algorithm — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Offline query reordering for O((n+q)√n) range query processing — elegant amortization trick</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🎯</div><div><div class="card-title">Centroid Decomposition</div><div class="card-sub">Divide & Conquer on Trees · Path Counting</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/centroid_decomposition.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Centroid Decomposition — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(n log n) divide-and-conquer over trees — counts paths with properties in log factor</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/52492" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Centroid Decomposition Tutorial — Codeforces Blog</div><div class="res-desc">Step-by-step build-up with classic problem applications (distance ≤ K path counting)</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📐</div><div><div class="card-title">Computational Geometry</div><div class="card-sub">Convex Hull · Line Sweep · Closest Pair</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/geometry/convex-hull.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Convex Hull (Graham Scan / Andrew's) — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(n log n) convex hull construction — used in robotics collision detection and clustering</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/geometry/intersecting_segments.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Line Sweep for Segment Intersection — CP-Algorithms</div><div class="res-desc">Sweep line technique for O(n log n) intersection detection among many segments</div></div></a>
+          <a class="res" href="https://cp-algorithms.com/geometry/nearest_points.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Closest Pair of Points — CP-Algorithms</div><div class="res-desc">Divide-and-conquer O(n log n) — directly mirrors nearest-neighbor search structure in ML</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🧱</div><div><div class="card-title">Persistent & Implicit Structures</div><div class="card-sub">Persistent DSU · Treap · Implicit Segment Tree</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/data_structures/treap.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Treap — CP-Algorithms <span class="star">★</span></div><div class="res-desc">Randomized balanced BST: split/merge operations enable order-statistics in O(log n)</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/19929" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Persistent Data Structures — Codeforces Blog</div><div class="res-desc">Build structures where every modification creates a new accessible version</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🧊</div><div><div class="card-title">Advanced Flow & Matching</div><div class="card-sub">Hungarian Algorithm · General Matching · Flow w/ LB</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://cp-algorithms.com/graph/hungarian-algorithm.html" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Hungarian Algorithm (Assignment Problem) — CP-Algorithms <span class="star">★</span></div><div class="res-desc">O(n³) min-cost perfect matching — directly used in multi-object tracking & detection assignment in CV</div></div></a>
+          <a class="res" href="https://codeforces.com/blog/entry/69066" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">General Graph Matching (Blossom Algorithm) — Codeforces Blog</div><div class="res-desc">Edmonds' blossom algorithm for matching in non-bipartite graphs — advanced topic</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PHASE 8 -->
+<section class="phase" id="mastery">
+  <hr class="div">
+  <div class="phase-head">
+    <div class="phase-badge">08</div>
+    <div class="phase-info">
+      <div class="phase-title">Mastery — Contest Strategy, Practice Platforms & Interview Prep</div>
+      <div class="phase-desc">
+        Knowing algorithms isn't enough — you need contest reflexes, problem-pattern recognition under time pressure, and a system for converting CP skill into ML/SWE interview performance at top labs. This phase is about execution, not new theory.
+      </div>
+      <div class="phase-meta">
+        <span class="meta-pill pill-time">⏱ Ongoing</span>
+        <span class="meta-pill pill-tags">Codeforces · LeetCode · ICPC · System Design Bridge</span>
+        <span class="meta-pill diff-expert">Expert</span>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleSection(this)">▼ Collapse</button>
+  <div class="phase-body">
+    <div class="topics">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🏆</div><div><div class="card-title">Competitive Judges & Rating Systems</div><div class="card-sub">Codeforces · AtCoder · CodeChef</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://codeforces.com/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">Codeforces <span class="star">★</span></div><div class="res-desc">The world's premier CP platform. Div 2/3 contests weekly. Target: reach Candidate Master (1900+).</div></div></a>
+          <a class="res" href="https://atcoder.jp/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">AtCoder <span class="star">★</span></div><div class="res-desc">Japanese platform with exceptionally well-written, clean problems. Beginner Contest (ABC) is excellent practice.</div></div></a>
+          <a class="res" href="https://www.codechef.com/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">CodeChef</div><div class="res-desc">Long Challenge format gives more time for harder algorithmic problems; good for deliberate practice</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">💼</div><div><div class="card-title">Interview-Focused Practice</div><div class="card-sub">LeetCode · NeetCode · Blind 75</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://leetcode.com/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">LeetCode <span class="star">★</span></div><div class="res-desc">The standard interview prep platform — every FAANG and AI lab interview question style lives here</div></div></a>
+          <a class="res" href="https://neetcode.io/practice" target="_blank"><span class="rtype t-tool">Tool</span><div class="res-body"><div class="res-title">NeetCode 150 <span class="star">★</span></div><div class="res-desc">Curated 150-problem set covering every interview pattern with free video explanations</div></div></a>
+          <a class="res" href="https://github.com/kdn251/interviews" target="_blank"><span class="rtype t-tool">Tool</span><div class="res-body"><div class="res-title">Tech Interview Handbook & Blind 75 — GitHub</div><div class="res-desc">Curated minimal problem set covering the highest-yield interview patterns</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌍</div><div><div class="card-title">ICPC & Team Contest Prep</div><div class="card-sub">Regional · World Finals · Team Strategy</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://icpc.global/" target="_blank"><span class="rtype t-judge">Judge</span><div class="res-body"><div class="res-title">ICPC — International Collegiate Programming Contest</div><div class="res-desc">The most prestigious team contest in CP. Practice old regional/World Finals problem sets on Codeforces gym.</div></div></a>
+          <a class="res" href="https://github.com/kth-competitive-programming/kactl/blob/master/kactl.pdf" target="_blank"><span class="rtype t-tool">Tool</span><div class="res-body"><div class="res-title">KACTL Notebook (PDF) — KTH Team Reference</div><div class="res-desc">The exact printed reference sheet top ICPC teams bring into the contest room</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🧠</div><div><div class="card-title">Pattern Recognition & Editorial Study</div><div class="card-sub">Upsolving · Virtual Contests · Editorial Reading</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://codeforces.com/blog/entry/66909" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">How to Practice Effectively — Codeforces Blog (Errichto) <span class="star">★</span></div><div class="res-desc">Upsolving strategy, virtual contest discipline, and how to extract maximum learning from each problem</div></div></a>
+          <a class="res" href="https://www.youtube.com/c/Errichto" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Errichto — YouTube Channel</div><div class="res-desc">Live problem-solving from a top-rated competitor; learn the actual thought process under time pressure</div></div></a>
+          <a class="res" href="https://www.youtube.com/c/colingalen" target="_blank"><span class="rtype t-video">Video</span><div class="res-body"><div class="res-title">Colin Galen — YouTube Channel</div><div class="res-desc">Live-rated Codeforces solves with running commentary — great for pattern recognition training</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🤖</div><div><div class="card-title">CP → ML Engineering Bridge</div><div class="card-sub">Translating Algorithmic Skill into ML System Design</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://huyenchip.com/ml-interviews-book/" target="_blank"><span class="rtype t-book">Book</span><div class="res-body"><div class="res-title">Machine Learning Interviews Book — Chip Huyen <span class="star">★</span></div><div class="res-desc">Bridges algorithmic interview skill into ML system design — read after this CP roadmap</div></div></a>
+          <a class="res" href="https://www.educative.io/courses/grokking-the-machine-learning-interview" target="_blank"><span class="rtype t-course">Course</span><div class="res-body"><div class="res-title">Grokking the Machine Learning Interview — Educative</div><div class="res-desc">ML system design patterns presented in the same structured format as algorithm interview prep</div></div></a>
+          <a class="res" href="https://arxiv.org/abs/1707.06887" target="_blank"><span class="rtype t-article">Article</span><div class="res-body"><div class="res-title">Why DP Mastery Predicts RL Aptitude — Conceptual Note</div><div class="res-desc">Value iteration, policy iteration, and Bellman backup are textbook DP — recognizing this early accelerates RL learning</div></div></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-icon">📋</div><div><div class="card-title">Mock Interviews & Timed Practice</div><div class="card-sub">Pramp · Interviewing.io · Timed Contests</div></div></div>
+        <div class="resources">
+          <a class="res" href="https://www.interviewing.io/" target="_blank"><span class="rtype t-tool">Tool</span><div class="res-body"><div class="res-title">Interviewing.io <span class="star">★</span></div><div class="res-desc">Anonymous mock technical interviews with engineers from top companies, including AI labs</div></div></a>
+          <a class="res" href="https://www.pramp.com/" target="_blank"><span class="rtype t-tool">Tool</span><div class="res-body"><div class="res-title">Pramp — Free Peer Mock Interviews</div><div class="res-desc">Free peer-to-peer mock interview platform; good for building speaking-while-coding fluency</div></div></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERVIEW SECTION -->
+    <div class="interview-wrap">
+      <div class="interview-hdr">🎯 Common Interview Questions by Company Type</div>
+      <div class="interview-grid">
+        <div class="company-block">
+          <div class="company-name" style="color:#5cc8ff">🔵 Big Tech (Google / Meta / Amazon)</div>
+          <div class="iq">Implement LRU cache with O(1) get/put</div>
+          <div class="iq">Find the kth largest element in a stream</div>
+          <div class="iq">Detect cycle in a directed graph; topological sort applications</div>
+          <div class="iq">Word ladder / shortest transformation sequence (BFS)</div>
+          <div class="iq">Design a rate limiter (sliding window technique)</div>
+          <div class="iq">Merge k sorted lists efficiently (heap-based)</div>
+        </div>
+        <div class="company-block">
+          <div class="company-name" style="color:#39ff8c">🟢 AI Labs (DeepMind / OpenAI / Anthropic)</div>
+          <div class="iq">Implement Dijkstra's and explain why it fails with negative weights</div>
+          <div class="iq">DP: edit distance, then generalize to weighted edit costs</div>
+          <div class="iq">Explain the connection between DP and the Bellman equation in RL</div>
+          <div class="iq">Implement a trie-based tokenizer matching the BPE merge process</div>
+          <div class="iq">Solve a scheduling problem via min-cost max-flow formulation</div>
+          <div class="iq">Given a DAG of operations, compute the optimal execution order (topo sort + critical path)</div>
+        </div>
+        <div class="company-block">
+          <div class="company-name" style="color:#ffd35c">🟡 Quant / High-Frequency Trading</div>
+          <div class="iq">Maximize subarray sum with at most k removals (DP + sliding window)</div>
+          <div class="iq">Implement a segment tree for range-max with lazy propagation under updates</div>
+          <div class="iq">Solve an order-matching problem (priority queue / heap based)</div>
+          <div class="iq">Detect arbitrage opportunity in a currency graph (Bellman-Ford negative cycle)</div>
+          <div class="iq">Optimize a portfolio allocation DP under budget constraint (knapsack variant)</div>
+        </div>
+        <div class="company-block">
+          <div class="company-name" style="color:#ff5c5c">🔴 Robotics / Computer Vision</div>
+          <div class="iq">Implement convex hull for collision boundary detection</div>
+          <div class="iq">Nearest neighbor search and its relation to closest-pair algorithms</div>
+          <div class="iq">Solve assignment problem for multi-object tracking (Hungarian algorithm)</div>
+          <div class="iq">Path planning on a grid with obstacles (BFS/Dijkstra/A*)</div>
+          <div class="iq">Explain how segment trees could accelerate spatial range queries in a perception pipeline</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES MASTER LIST -->
+<section class="phase">
+  <hr class="div">
+  <div class="papers-section">
+    <div class="papers-hdr">∞ Tier-1 Reference Resources — The Complete List</div>
+    <div class="papers-grid">
+      <a class="paper-card" href="https://cp-algorithms.com/" target="_blank">
+        <div class="paper-year">REFERENCE <span class="star">★</span></div>
+        <div class="paper-name">CP-Algorithms (e-maxx-eng)</div>
+        <div class="paper-desc">The single most comprehensive free algorithm reference for CP. Use throughout every phase.</div>
+      </a>
+      <a class="paper-card" href="https://usaco.guide/" target="_blank">
+        <div class="paper-year">CURRICULUM <span class="star">★</span></div>
+        <div class="paper-name">USACO Guide</div>
+        <div class="paper-desc">Best-organized free structured curriculum, Bronze through Platinum/Advanced.</div>
+      </a>
+      <a class="paper-card" href="https://cses.fi/problemset/" target="_blank">
+        <div class="paper-year">PROBLEM SET <span class="star">★</span></div>
+        <div class="paper-name">CSES Problem Set</div>
+        <div class="paper-desc">300 problems, perfectly ordered by topic. The best practice-driven curriculum.</div>
+      </a>
+      <a class="paper-card" href="https://atcoder.jp/contests/dp" target="_blank">
+        <div class="paper-year">PROBLEM SET <span class="star">★</span></div>
+        <div class="paper-name">AtCoder Educational DP Contest</div>
+        <div class="paper-desc">26 problems (A–Z), the canonical structured path through every DP pattern.</div>
+      </a>
+      <a class="paper-card" href="https://www.amazon.com/Competitive-Programmers-Handbook-Antti-Laaksonen/dp/3319725469" target="_blank">
+        <div class="paper-year">BOOK <span class="star">★</span></div>
+        <div class="paper-name">Competitive Programmer's Handbook — Laaksonen</div>
+        <div class="paper-desc">Free PDF available from author's site. Concise, complete coverage of every core topic.</div>
+      </a>
+      <a class="paper-card" href="https://www.topcoder.com/thrive" target="_blank">
+        <div class="paper-year">ARTICLES</div>
+        <div class="paper-name">TopCoder Algorithm Tutorials</div>
+        <div class="paper-desc">Classic, well-written tutorials on greedy, DP, graphs, geometry — still relevant today.</div>
+      </a>
+      <a class="paper-card" href="https://github.com/kth-competitive-programming/kactl" target="_blank">
+        <div class="paper-year">CODE LIBRARY <span class="star">★</span></div>
+        <div class="paper-name">KACTL — KTH Algorithm Library</div>
+        <div class="paper-desc">Gold-standard, contest-ready C++ implementations of nearly every algorithm in this roadmap.</div>
+      </a>
+      <a class="paper-card" href="https://www.youtube.com/c/WilliamFiset-videos" target="_blank">
+        <div class="paper-year">VIDEO COURSE <span class="star">★</span></div>
+        <div class="paper-name">William Fiset — DSA YouTube Course</div>
+        <div class="paper-desc">Complete free video course with visualized explanations for every classic algorithm.</div>
+      </a>
+      <a class="paper-card" href="https://codeforces.com/" target="_blank">
+        <div class="paper-year">JUDGE <span class="star">★</span></div>
+        <div class="paper-name">Codeforces</div>
+        <div class="paper-desc">World's leading CP judge. Weekly contests, the best editorial culture, the rating that matters most.</div>
+      </a>
+      <a class="paper-card" href="https://codeforces.com/blog/entry/66909" target="_blank">
+        <div class="paper-year">META-STRATEGY</div>
+        <div class="paper-name">How to Practice Effectively — Errichto</div>
+        <div class="paper-desc">The single best meta-article on how to actually improve at CP through deliberate practice.</div>
+      </a>
+      <a class="paper-card" href="https://huyenchip.com/ml-interviews-book/" target="_blank">
+        <div class="paper-year">CAREER BRIDGE <span class="star">★</span></div>
+        <div class="paper-name">Machine Learning Interviews Book — Chip Huyen</div>
+        <div class="paper-desc">Once CP fundamentals are solid, this is the natural next step toward ML system design interviews.</div>
+      </a>
+      <a class="paper-card" href="https://github.com/SuprDewd/T-414-AFLV/blob/master/efficient-algorithms.pdf" target="_blank">
+        <div class="paper-year">NOTEBOOK</div>
+        <div class="paper-name">ICPC Team Reference Notebooks (Compiled)</div>
+        <div class="paper-desc">Aggregated team reference sheets used at World Finals — study the algorithm selection priorities.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Competitive Programming Roadmap — Built to forge the algorithmic core behind a world-class ML engineer<br>
+  <span style="color:var(--border2)">Start with Phase 1. Solve CSES end to end. Hit Codeforces Expert (1600+) before moving to ML system design interviews.</span>
+</footer>
+
+<script>
+  function gotoPhase(id, btn) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  function toggleSection(btn) {
+    const body = btn.nextElementSibling;
+    const c = body.classList.toggle('collapsed');
+    btn.textContent = c ? '▶ Expand' : '▼ Collapse';
+  }
+  const phases = ['basics','ds','graphs','dp','strings','math','advanced','mastery'];
+  const tabs = document.querySelectorAll('.tab');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    phases.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 130) cur = id;
+    });
+    tabs.forEach((t, i) => t.classList.toggle('active', phases[i] === cur));
+  }, { passive: true });
+</script>
+</body>
+</html>
